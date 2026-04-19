@@ -64,6 +64,9 @@ Style/FrozenStringLiteralComment:
 Style/Documentation:
   Enabled: false
 
+Style/DisableCopsWithinSourceCodeDirective:
+  Enabled: false
+
 Style/MethodCallWithArgsParentheses:
   Enabled: false
 
