@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_19_072532) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_19_164501) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -23,6 +23,21 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_19_072532) do
     t.string "last_name", null: false
     t.datetime "updated_at", null: false
     t.index ["first_name", "last_name"], name: "index_authors_on_first_name_and_last_name", unique: true
+  end
+
+  create_table "books", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "author_id", null: false
+    t.integer "copies_count", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.text "description"
+    t.uuid "genre_id", null: false
+    t.string "isbn", null: false
+    t.integer "status", default: 1, null: false
+    t.string "title", null: false
+    t.datetime "updated_at", null: false
+    t.index ["author_id"], name: "index_books_on_author_id"
+    t.index ["genre_id"], name: "index_books_on_genre_id"
+    t.index ["isbn"], name: "index_books_on_isbn", unique: true
   end
 
   create_table "genres", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -52,4 +67,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_19_072532) do
     t.index ["role"], name: "index_users_on_role"
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
+
+  add_foreign_key "books", "authors"
+  add_foreign_key "books", "genres"
 end
