@@ -54,6 +54,8 @@ group :development, :test do
   gem 'rubocop-factory_bot', require: false
   # Code style checking for RSpec Rails files (https://github.com/rubocop/rubocop-rspec_rails)
   gem 'rubocop-rspec_rails', require: false
+  # Provides RSpec and Minitest-compatible one-liners to test common Rails functionality (https://github.com/thoughtbot/shoulda-matchers)
+  gem 'shoulda-matchers', '~> 7.0'
 end
 
 group :development do
@@ -68,6 +70,6 @@ group :development do
 end
 
 group :test do
-  # Set of gems containing strategies for cleaning your database in Ruby. (https://github.com/DatabaseCleaner/database_cleaner
+  # Set of gems containing strategies for cleaning your database in Ruby. (https://github.com/DatabaseCleaner/database_cleaner)
   gem 'database_cleaner-active_record'
 end
