@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_19_164501) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_19_175244) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -23,6 +23,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_19_164501) do
     t.string "last_name", null: false
     t.datetime "updated_at", null: false
     t.index ["first_name", "last_name"], name: "index_authors_on_first_name_and_last_name", unique: true
+  end
+
+  create_table "book_copies", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.text "annotations"
+    t.uuid "book_id", null: false
+    t.datetime "created_at", null: false
+    t.integer "status", default: 0, null: false
+    t.datetime "updated_at", null: false
+    t.index ["book_id"], name: "index_book_copies_on_book_id"
   end
 
   create_table "books", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -68,6 +77,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_19_164501) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  add_foreign_key "book_copies", "books"
   add_foreign_key "books", "authors"
   add_foreign_key "books", "genres"
 end

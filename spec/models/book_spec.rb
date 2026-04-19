@@ -6,7 +6,7 @@ RSpec.describe Book, type: :model do
   describe 'associations' do
     it { is_expected.to belong_to(:author) }
     it { is_expected.to belong_to(:genre) }
-    # it { is_expected.to have_many(:book_copies) }
+    it { is_expected.to have_many(:book_copies) }
   end
 
   describe 'validations' do
