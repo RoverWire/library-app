@@ -11,6 +11,15 @@ class Loan < ApplicationRecord
   before_validation :set_loan_dates, on: :create
   after_create :mark_copy_as_borrowed
 
+  def mark_as_returned!
+    return false if returned_at.present?
+
+    transaction do
+      update!(returned_at: Time.current)
+      book_copy.available!
+    end
+  end
+
   private
 
   def set_loan_dates

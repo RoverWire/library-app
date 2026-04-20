@@ -3,6 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Loan, type: :model do
+  let(:loan) { create(:loan) }
   let(:user) { create(:user) }
   let(:book) { create(:book, status: :active) }
   let(:copy_one) { create(:book_copy, book: book, status: :available) }
@@ -17,6 +18,32 @@ RSpec.describe Loan, type: :model do
     it 'changes book_copy status to borrowed' do
       create(:loan, user: user, book_copy: copy_one)
       expect(copy_one.reload.borrowed?).to be true
+    end
+  end
+
+  describe '#mark_as_returned!' do
+    context 'when returning a book on time' do
+      it 'updates the returned_at timestamp' do
+        expect { loan.mark_as_returned! }
+          .to change(loan, :returned_at)
+          .from(nil)
+      end
+
+      it 'changes the book copy status back to available' do
+        expect(loan.book_copy.borrowed?).to be true
+        loan.mark_as_returned!
+        expect(loan.book_copy.available?).to be true
+      end
+    end
+
+    context 'when the book is already returned' do
+      it 'returns false and does not update the timestamp' do
+        loan.update(returned_at: 1.day.ago)
+        original_time = loan.returned_at
+
+        expect(loan.mark_as_returned!).to be false
+        expect(loan.returned_at).to eq(original_time)
+      end
     end
   end
 
