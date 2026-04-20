@@ -11,7 +11,7 @@ FactoryBot.define do
     genre
 
     trait :with_copies do
-      copies_count { 0 }
+      copies_count { 3 }
       book_copies { build_list(:book_copy, 3) }
     end
   end
