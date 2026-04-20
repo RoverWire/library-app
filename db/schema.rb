@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_19_175244) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_19_192557) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -56,6 +56,18 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_19_175244) do
     t.index ["name"], name: "index_genres_on_name", unique: true
   end
 
+  create_table "loans", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "book_copy_id", null: false
+    t.datetime "borrowed_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "due_date", null: false
+    t.datetime "returned_at"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["book_copy_id"], name: "index_loans_on_book_copy_id"
+    t.index ["user_id"], name: "index_loans_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "email", default: "", null: false
@@ -80,4 +92,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_19_175244) do
   add_foreign_key "book_copies", "books"
   add_foreign_key "books", "authors"
   add_foreign_key "books", "genres"
+  add_foreign_key "loans", "book_copies"
+  add_foreign_key "loans", "users"
 end
