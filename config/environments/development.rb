@@ -58,7 +58,7 @@ Rails.application.configure do
   config.action_controller.raise_on_missing_callback_actions = true
 
   # Action Mailer config
-  # config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
   Rails.application.config.hosts << ENV.fetch('APP_HOST', nil)
 end
