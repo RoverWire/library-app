@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  include Devise::JWT::RevocationStrategies::JTIMatcher
+
   has_many :loans, dependent: :delete_all
   has_many :book_copies, through: :loans
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, :lockable, :jwt_authenticatable, jwt_revocation_strategy: Devise::JWT::RevocationStrategies::Null
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, :lockable, :jwt_authenticatable, jwt_revocation_strategy: self
 
   validates :first_name, :last_name, presence: true
   validates :email, presence: true, uniqueness: { case_sensitive: false }
