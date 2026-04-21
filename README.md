@@ -98,6 +98,6 @@ $ bundle exec bundle-audit
 
 ## Roles & Permisions
 
-- Admin → Full access
-- Librarian → Manage books, authors, genres, and book copies
-- Member → Browse books and manage their own loans
+- Admin → Full access `admin@example.com / password123`
+- Librarian → Manage books, authors, genres, and book copies `librarian@example.com / password123`
+- Member → Browse books and manage their own loans `member@example.com / password123`
