@@ -30,6 +30,8 @@ User.create!(email: 'admin@example.com', password: 'password123', first_name: 'A
 
 User.create!(email: 'librarian@example.com', password: 'password123', first_name: 'Libby', last_name: 'Smith', role: :librarian)
 
+User.create!(email: 'member@example.com', password: 'password123', first_name: 'John', last_name: 'Doe', role: :member)
+
 members =
   Array.new(5) do
     User.create!(email: Faker::Internet.unique.email, password: 'password123', first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, role: :member)
