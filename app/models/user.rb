@@ -18,4 +18,8 @@ class User < ApplicationRecord
   def full_name
     "#{first_name} #{last_name}"
   end
+
+  def can_borrow?(book)
+    !loans.joins(:book_copy).exists?(book_copies: { book_id: book.id }, returned_at: nil)
+  end
 end
