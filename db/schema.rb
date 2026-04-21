@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_20_032147) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_21_054407) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -32,6 +32,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_20_032147) do
     t.integer "status", default: 0, null: false
     t.datetime "updated_at", null: false
     t.index ["book_id"], name: "index_book_copies_on_book_id"
+    t.index ["status"], name: "index_book_copies_on_status"
   end
 
   create_table "books", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -47,6 +48,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_20_032147) do
     t.index ["author_id"], name: "index_books_on_author_id"
     t.index ["genre_id"], name: "index_books_on_genre_id"
     t.index ["isbn"], name: "index_books_on_isbn", unique: true
+    t.index ["status"], name: "index_books_on_status"
+    t.index ["title"], name: "index_books_on_title"
   end
 
   create_table "genres", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -64,7 +67,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_20_032147) do
     t.datetime "returned_at"
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
+    t.index ["book_copy_id", "returned_at"], name: "index_loans_on_copy_active"
     t.index ["book_copy_id"], name: "index_loans_on_book_copy_id"
+    t.index ["due_date"], name: "index_loans_on_due_date"
+    t.index ["returned_at"], name: "index_loans_on_returned_at"
+    t.index ["user_id", "returned_at"], name: "index_loans_on_user_id_and_returned_at"
     t.index ["user_id"], name: "index_loans_on_user_id"
   end
 
