@@ -3,6 +3,9 @@
 class Ability
   include CanCan::Ability
 
+  ROLE_RULES = { admin: :admin_rules, librarian: :librarian_rules, member: :member_rules }.freeze
+  private_constant :ROLE_RULES
+
   def initialize(user)
     # Define abilities for the user here. For example:
     #
@@ -28,15 +31,10 @@ class Ability
     #
     # See the wiki for details:
     # https://github.com/CanCanCommunity/cancancan/blob/develop/docs/define_check_abilities.md
-    user ||= User.new
 
-    if user.admin?
-      admin_rules(user)
-    elsif user.librarian?
-      librarian_rules(user)
-    elsif user.member?
-      member_rules(user)
-    end
+    user ||= User.new(role: :member)
+
+    public_send(ROLE_RULES[user.role.to_sym], user) if user.role.present?
   end
 
   def admin_rules(_user)
@@ -48,6 +46,7 @@ class Ability
     can :manage, Author
     can :manage, Genre
     can :manage, BookCopy
+
     can :read, Loan
     can :update, Loan, returned_at: nil
     cannot :destroy, Loan
@@ -57,6 +56,7 @@ class Ability
     can :read, Book
     can :read, Author
     can :read, Genre
+
     can :create, Loan
     can :read, Loan, user_id: user.id
     can :update, Loan, user_id: user.id, returned_at: nil

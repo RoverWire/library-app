@@ -11,4 +11,9 @@ module AuthHelpers
       'ACCEPT' => 'application/json'
     }
   end
+
+  def authenticate_as(role)
+    user = create(:user, role)
+    authenticate_user(user)
+  end
 end
