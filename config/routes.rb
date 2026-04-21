@@ -15,10 +15,12 @@ Rails.application.routes.draw do
   # Defines the root path route ('/')
   # root 'posts#index'
 
+  # Devise resource_name changes to :api_v1_user
+  # when using namespaced routes, so we need to use
+  # scopes to work correctly.
   scope :api, defaults: { format: :json } do
     scope :v1 do
       devise_for :users,
-                 path: 'users',
                  path_names: {
                    sign_in: 'login',
                    sign_out: 'logout',
@@ -28,6 +30,14 @@ Rails.application.routes.draw do
                    sessions: 'api/v1/users/sessions',
                    registrations: 'api/v1/users/registrations'
                  }
+    end
+  end
+
+  namespace :api do
+    namespace :v1 do
+      namespace :users do
+        resource :profile, only: %i[show update], controller: 'profile'
+      end
     end
   end
 end

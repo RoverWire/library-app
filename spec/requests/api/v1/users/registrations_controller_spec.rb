@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Api::V1::Users::Registrations', type: :request do
+RSpec.describe 'Api::V1::Users::RegistrationsController', type: :request do
   let(:signup_url) { '/api/v1/users/signup' }
   let(:update_url) { '/api/v1/users/signup' }
   let(:user) { create(:user, password: 'password123', email: 'test@example.com') }
