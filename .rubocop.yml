@@ -114,6 +114,10 @@ Metrics/BlockLength:
 Metrics/MethodLength:
   Max: 15
 
+RSpec/MultipleMemoizedHelpers:
+  Max: 8
+  AllowSubject: true
+
 # Lint
 
 Lint/ConstantResolution:
