@@ -17,6 +17,8 @@ gem 'puma', '>= 5.0'
 gem 'devise'
 # Devise JWT Extension for JWT token generation and verification. (https://github.com/heartcombo/devise-jwt)
 gem 'devise-jwt'
+# CanCanCan is an authorization library for Ruby on Rails which restricts what resources a given user is allowed to access. (https://github.com/cancancommunity/cancancan)
+gem 'cancancan'
 # Use Vite in Rails and bring joy to your JavaScript experience (https://github.com/ElMassimo/vite_ruby)
 # gem 'vite_rails'
 # Tame Rails' multi-line logging into a single line per request (https://github.com/roidrage/lograge)
