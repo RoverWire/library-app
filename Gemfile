@@ -40,6 +40,8 @@ group :development, :test do
   gem 'factory_bot_rails'
   # Random data generator for testing and database population (https://github.com/faker-ruby/faker)
   gem 'faker'
+  # Pry is a powerful alternative to the standard IRB shell for Ruby. (https://github.com/pry/pry-rails)
+  gem 'pry-rails'
   # RSpec for Rails (https://github.com/rspec/rspec-rails)
   gem 'rspec-rails'
   # Automatic Ruby code style checking tool. (https://github.com/rubocop/rubocop)
@@ -61,8 +63,6 @@ group :development do
   gem 'annotaterb'
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code. (https://github.com/rails/web-console)
   gem 'web-console', '>= 4.1.0'
-  # Pry is a powerful alternative to the standard IRB shell for Ruby. (https://github.com/pry/pry-rails)
-  gem 'pry-rails'
   # prettier plugin for the Ruby programming language (https://github.com/prettier/plugin-ruby#readme)
   gem 'prettier'
 end
