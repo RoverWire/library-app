@@ -23,7 +23,7 @@ module Api
         if book.save
           render json: book, status: :created
         else
-          render json: { errors: format_errors(book) }, status: :unprocessable_content
+          render_error(book)
         end
       end
 
@@ -33,7 +33,7 @@ module Api
         if @book.update(book_params)
           render json: @book, status: :ok
         else
-          render json: { errors: format_errors(@book) }, status: :unprocessable_content
+          render_error(@book)
         end
       end
 
@@ -52,15 +52,6 @@ module Api
 
       def book_params
         params.expect(book: %i[title isbn description author_id genre_id status])
-      end
-
-      def format_errors(resource)
-        resource.errors.map do |attr, msg|
-          {
-            field: attr,
-            message: msg
-          }
-        end
       end
     end
   end

@@ -26,7 +26,13 @@ module Api
       end
 
       def render_error(resource)
-        render json: { errors: resource.errors.full_messages }, status: :unprocessable_content
+        render json: { errors: format_errors(resource) }, status: :unprocessable_content
+      end
+
+      def format_errors(resource)
+        resource.errors.map do |attr, msg|
+          { field: attr, message: msg }
+        end
       end
     end
   end
