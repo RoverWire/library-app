@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :books
+      resources :genres
       namespace :users do
         resource :profile, only: %i[show update], controller: 'profile'
       end
