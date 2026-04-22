@@ -35,6 +35,22 @@ class Ability
     user ||= User.new(role: :member)
 
     public_send(ROLE_RULES[user.role.to_sym], user) if user.role.present?
+
+    # can :read, Loan do |loan|
+    #   LoanPolicy.new(user, loan).read?
+    # end
+
+    # can :create, Loan do |_loan|
+    #   LoanPolicy.new(user, nil).create?
+    # end
+
+    # can :update, Loan do |loan|
+    #   LoanPolicy.new(user, loan).update?
+    # end
+
+    # can :destroy, Loan do |loan|
+    #   LoanPolicy.new(user, loan).destroy?
+    # end
   end
 
   def admin_rules(_user)
